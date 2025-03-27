@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap-icons/bootstrap-icons.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 </head>
-<body class="{{ strtolower($data['page']); }}">
-	@if(($data['page'] == "Dashboard") || ($data['page'] == "New Task") || ($data['page'] == "All Tasks") || ($data['page'] == "Edit Task"))
+<body class="{{ strtolower(str_replace(' ', '', $data['page'])); }}">
+	@if(($data['page'] == "Dashboard ") || ($data['page'] == "New Task ") || ($data['page'] == "Tasks ") || ($data['page'] == "Edit Task "))
 		<x-topnav />
 	@endif
 	<main>

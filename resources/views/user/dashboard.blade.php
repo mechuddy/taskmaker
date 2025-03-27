@@ -7,7 +7,7 @@
 		</h4>
 		<div class="row">
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-3">
-				<div class="col-box col-box-1 rounded" onclick="">
+				<div class="col-box col-box-1 rounded" onclick="navigate('/user/newtask')">
 					<span class="col-box-icon">
 						<i class="bi bi-plus-circle-fill"></i>
 					</span>
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 my-3">
-				<div class="col-box col-box-2 rounded" onclick="">
+				<div class="col-box col-box-2 rounded" onclick="navigate('/user/tasks')">
 					<span class="col-box-icon">
 						<i class="bi bi-layers-fill"></i>
 					</span>

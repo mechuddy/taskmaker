@@ -154,3 +154,56 @@ body { font-family: var(--worksans); }
 	cursor: pointer;
 }
 .dashboard { background-color: var(--blue); }
+/* NEW TASK */
+.newtask form textarea { resize: none; }
+.newtask .card .card-title { cursor: pointer; }
+.newtask .card {
+	background-color: var(--bs-gray-200);
+	border-radius: 0px;
+	margin-top: 85px;
+	margin-bottom: 85px;
+}
+.newtask { background-color: var(--blue); }
+@media screen and (min-width: 799px) {
+	.newtask .card {
+		width: 45%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+/* EDIT TASK */
+.edittask form textarea { resize: none; }
+.edittask .card .card-title { cursor: pointer; }
+.edittask .card {
+	background-color: var(--bs-gray-200);
+	border-radius: 0px;
+	margin-top: 85px;
+	margin-bottom: 85px;
+}
+.edittask { background-color: var(--blue); }
+@media screen and (min-width: 799px) {
+	.edittask .card {
+		width: 45%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+/* TASKS */
+.tasks .card .card-header .card-header-items {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.tasks .card .card-header {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border: 0px;
+	background-color: var(--dark);
+	color: var(--white);
+}
+.tasks .card .card-body .card-title { color: var(--blue); }
+.tasks .card {
+	border-radius: 0px;
+	background-color: var(--white);
+}
+.tasks { background-color: var(--blue); }

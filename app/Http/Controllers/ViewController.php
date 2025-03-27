@@ -24,25 +24,25 @@ class ViewController extends Controller
     // methods
     public function home()
     {
-        $page = "Home";
+        $page = "Home ";
         $data = array('page' => $page);
         return view('home')->with('data', $data);
     }
     public function register()
     {
-        $page = "Register";
+        $page = "Register ";
         $data = array('page' => $page);
         return view('user.register')->with('data', $data);
     }
     public function login()
     {
-        $page = "Login";
+        $page = "Login ";
         $data = array('page' => $page);
         return view('user.login')->with('data', $data);
     }
     public function dashboard()
     {
-        $page = "Dashboard";
+        $page = "Dashboard ";
         $user = Auth::user();
         $data = array('page' => $page, 'user' => $user);
         return view('user.dashboard')->with('data', $data);

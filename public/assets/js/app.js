@@ -130,7 +130,9 @@ const register = () => {
 		if(password == confirmPassword) {
 			// FORM DATA
 			let formData = new FormData();
-			let url = "/user/register";
+			// route
+			let route = "/user/register";
+			// payload
 			formData.append("_token", token);
 			formData.append("firstname", firstname);
 			formData.append("lastname", lastname);
@@ -141,7 +143,7 @@ const register = () => {
 			// AJAX Call
 			$.ajax({
 				type: "POST",
-				url: url,
+				url: route,
 				data: formData,
 				contentType: false,
 				processData: false,
@@ -210,14 +212,16 @@ const login = () => {
 	if((identityStatus == "VALIDATED") && (passwordStatus == "VALIDATED")) {
 		// FORM DATA
 		let formData = new FormData();
-		let url = "/user/login";
+		// route
+		let route = "/user/login";
+		// payload
 		formData.append("_token", token);
 		formData.append("identity", identity);
 		formData.append("password", password);
 		// AJAX Call
 		$.ajax({
 			type: "POST",
-			url: url,
+			url: route,
 			data: formData,
 			contentType: false,
 			processData: false,
@@ -251,11 +255,229 @@ const login = () => {
 		});
 	}
 }
-const logout = () => {
-	// use fetch in place of AJAX
-	let url = "/user/logout";
+const createTask = () => {
+	// form input validators
+	const validateTitle = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please Add Title").show();
+		} else {
+			if(/[^a-zA-Z ]/.test(a)) {
+				b.html("Title is not valid").show();
+			} else {
+				b.html(empty).hide();
+				validityStatus = "VALIDATED";
+				return validityStatus;
+			}
+		}
+	}
+	const validateDescription = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please Add Description").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	const validateDate = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please Select Date").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	/* VARIABLES */
+	let empty = "";
+	let alert = empty;
+	let time = 4000;
 	const token = $("meta[name='csrf-token']").attr('content');
-	fetch(url, {
+	const title = $("#title").val();
+	const description = $("#description").val();
+	const date = $("#date").val();
+	let titleError = $(".title-error");
+	let descriptionError = $(".description-error");
+	let dateError = $(".date-error");
+	let formBtn = $("#user-new-task-btn");
+	let formNotification = $(".form-notification");
+	let form = $("#user-new-task-form");
+	const titleStatus = validateTitle(title, titleError);
+	const descriptionStatus = validateDescription(description, descriptionError);
+	const dateStatus = validateDate(date, dateError);
+	// cond
+	if((titleStatus == "VALIDATED") && (descriptionStatus == "VALIDATED") && (dateStatus == "VALIDATED")) {
+		// FORM DATA
+		let formData = new FormData();
+		// route
+		let route = "/user/newtask";
+		// payload
+		formData.append("_token", token);
+		formData.append("title", title);
+		formData.append("description", description);
+		formData.append("date", date);
+		// AJAX Call
+		$.ajax({
+			type: "POST",
+			url: route,
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function(response) {
+				if(response.success) {
+					alert = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Task Created Successfully</div>";
+					formNotification.append(alert);
+					scrollUp();
+					setTimeout(function() {
+						formNotification.html(empty);
+						form.trigger("reset");
+					}, time);
+				}
+			}
+		});
+	}
+}
+const updateTask = () => {
+	// form input validators
+	const validateTitle = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please Add Title").show();
+		} else {
+			if(/[^a-zA-Z ]/.test(a)) {
+				b.html("Title is not valid").show();
+			} else {
+				b.html(empty).hide();
+				validityStatus = "VALIDATED";
+				return validityStatus;
+			}
+		}
+	}
+	const validateDescription = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please Add Description").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	const validateDate = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Please select Date").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	const validateChoice = (a, b) => {
+		let validityStatus = empty;
+		let none = "None";
+		b.html(empty).hide();
+		if(a == none) {
+			b.html("Please Select Status").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	/* VARIABLES */
+	let empty = "";
+	let alert = empty;
+	let time = 4000;
+	const url = window.location.href;
+	const segments = url.split('/');
+	const id = segments[segments.indexOf('user') + 1];
+	const token = $("meta[name='csrf-token']").attr('content');
+	const title = $("#title").val();
+	const description = $("#description").val();
+	const date = $("#date").val();
+	const status = $("#status").val();
+	let titleError = $(".title-error");
+	let descriptionError = $(".description-error");
+	let dateError = $(".date-error");
+	let statusError = $(".status-error");
+	let formBtn = $("#user-new-task-btn");
+	let formNotification = $(".form-notification");
+	let form = $("#user-new-task-form");
+	const titleStatus = validateTitle(title, titleError);
+	const descriptionStatus = validateDescription(description, descriptionError);
+	const dateStatus = validateDate(date, dateError);
+	const statusSelectionStatus = validateChoice(status, statusError);
+	// cond
+	if((titleStatus == "VALIDATED") && (descriptionStatus == "VALIDATED") && (dateStatus == "VALIDATED") && (statusSelectionStatus == "VALIDATED")) {
+		// FORM DATA
+		let formData = new FormData();
+		// route (template literal)
+		let route = `/user/${id}/edit`;
+		// payload
+		formData.append("_token", token);
+		formData.append("title", title);
+		formData.append("description", description);
+		formData.append("date", date);
+		formData.append("status", status);
+		// AJAX Call
+		$.ajax({
+			type: "POST",
+			url: route,
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function(response) {
+				if(response.success) {
+					alert = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Task Updated Successfully</div>";
+					formNotification.append(alert);
+					scrollUp();
+					setTimeout(function() {
+						formNotification.html(empty);
+					}, time);
+				}
+			}
+		});
+	}
+}
+const deleteTask = (id) => {
+	const action = "DELETE";
+	const token = $("meta[name='csrf-token']").attr('content');
+	// ASSUMING FORM DATA
+	let formData = new FormData();
+	// payload
+	formData.append("_token", token);
+	formData.append("action", action);
+	// route (template literal)
+	let route = `/user/${id}/delete`;
+	// AJAX Call
+	$.ajax({
+		type: "POST",
+		url: route,
+		data: formData,
+		contentType: false,
+		processData: false,
+		success: function(response) {
+			if(response.success) {
+				navigate(response.redirect);
+			}
+		}
+	});
+}
+const logout = () => {
+	// use fetch
+	const token = $("meta[name='csrf-token']").attr('content');
+	let route = "/user/logout";
+	fetch(route, {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json',
