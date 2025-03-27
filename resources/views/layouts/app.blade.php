@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 </head>
 <body class="{{ strtolower(str_replace(' ', '', $data['page'])); }}">
-	@if(($data['page'] == "Dashboard ") || ($data['page'] == "New Task ") || ($data['page'] == "Tasks ") || ($data['page'] == "Edit Task "))
+	@if(($data['page'] == "Dashboard ") || ($data['page'] == "New Task ") || ($data['page'] == "Tasks ") || ($data['page'] == "Edit Task ") || ($data['page'] == "Account Settings ") || ($data['page'] == "Change Password "))
 		<x-topnav />
 	@endif
 	<main>

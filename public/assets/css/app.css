@@ -147,6 +147,7 @@ body { font-family: var(--worksans); }
 }
 .dashboard .row .col-box-1 { background-color: var(--orange); }
 .dashboard .row .col-box-2 { background-color: var(--green); }
+.dashboard .row .col-box-3 { background-color: var(--dark); }
 .dashboard .row .col-box {
 	padding-top: 45px;
 	padding-bottom: 45px;
@@ -207,3 +208,29 @@ body { font-family: var(--worksans); }
 	background-color: var(--white);
 }
 .tasks { background-color: var(--blue); }
+/* ACCOUNT SETTINGS */
+.accountsettings .pane .pane-icon {
+	font-size: 2.5rem;
+	color: var(--orange);
+}
+.accountsettings .pane {
+	background-color: var(--white);
+	cursor: pointer;
+}
+.accountsettings { background-color: var(--blue); }
+/* CHANGE PASSWORD */
+.changepassword .card .card-title { cursor: pointer; }
+.changepassword .card {
+	background-color: var(--bs-gray-200);
+	border-radius: 0px;
+	margin-top: 85px;
+	margin-bottom: 85px;
+}
+.changepassword { background-color: var(--blue); }
+@media screen and (min-width: 799px) {
+	.changepassword .card {
+		width: 45%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

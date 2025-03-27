@@ -47,4 +47,10 @@ class ViewController extends Controller
         $data = array('page' => $page, 'user' => $user);
         return view('user.dashboard')->with('data', $data);
     }
+    public function accountsettings()
+    {
+        $page = "Account Settings ";
+        $data = array('page' => $page);
+        return view('user.accountsettings')->with('data', $data);
+    }
 }

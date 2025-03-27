@@ -9,6 +9,21 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    // constructor
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // generate the response by passing the request to the next middleware or controller
+            $response = $next($request);
+            // add caching headers to the response
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+            // return the modified response
+            return $response;
+        });
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -118,11 +133,14 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for changing user password
      */
-    public function edit(string $id)
+    public function changePassword()
     {
-        //
+        $page = "Change Password ";
+        $user = Auth::user();
+        $data = array('page' => $page, 'user' => $user);
+        return view('user.changepassword')->with('data', $data);
     }
 
     /**
@@ -130,7 +148,14 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // get new password, hash
+        $newPassword = Hash::make($request->newPassword);
+        // find user
+        $user = User::find($id);
+        // set new password, save, return response
+        $user->password = $newPassword;
+        $user->save();
+        return response()->json(['success' => true, 'message' => 'Password Changed Successfully']);
     }
 
     /**

@@ -30,20 +30,17 @@ Route::post('/user/login', [UserController::class, 'authenticate']);
 
 // Auth Routes
 Route::middleware(['auth'])->group(function () {
-	// dashboard
+	/* USER RELATED */
 	Route::get('/user/dashboard', [ViewController::class, 'dashboard'])->name('user.dashboard');
-	// new task (get)
-	Route::get('/user/newtask', [TaskController::class, 'create']);
-	// all tasks (get)
-	Route::get('/user/tasks', [TaskController::class, 'all']);
-	// edit task
-	Route::get('/user/{id}/edit', [TaskController::class, 'edit']);
-	// new task (post)
-	Route::post('/user/newtask', [TaskController::class, 'store']);
-	// edit task (post)
-	Route::post('/user/{id}/edit', [TaskController::class, 'update']);
-	// delete task (post)
-	Route::post('/user/{id}/delete', [TaskController::class, 'destroy']);
-	// logout
+	Route::get('/user/accountsettings', [ViewController::class, 'accountsettings'])->name('user.accountsettings');
+	Route::get('/user/changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
+	Route::post('/user/{id}/changepassword', [UserController::class, 'update']);
 	Route::post('/user/logout', [UserController::class, 'logout'])->name('logout');
+	/* TASK RELATED */
+	Route::get('/user/newtask', [TaskController::class, 'create']);
+	Route::get('/user/tasks', [TaskController::class, 'all']);
+	Route::get('/user/{id}/edit', [TaskController::class, 'edit']);
+	Route::post('/user/newtask', [TaskController::class, 'store']);
+	Route::post('/user/{id}/edit', [TaskController::class, 'update']);
+	Route::post('/user/{id}/delete', [TaskController::class, 'destroy']);
 });

@@ -37,5 +37,22 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3 mb-5">
+				<div class="col-box col-box-3 rounded" onclick="navigate('/user/accountsettings')">
+					<span class="col-box-icon">
+						<i class="bi bi-gear"></i>
+					</span>
+					<h4 class="text-orange my-1">
+						Account Settings
+					</h4>
+					<p class="text-white lead mt-0">
+						<small>
+							Manage Account Info, Account Security, Other
+						</small>
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 @endsection

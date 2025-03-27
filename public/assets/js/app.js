@@ -209,6 +209,7 @@ const login = () => {
 	let form = $("#user-login-form");
 	const identityStatus = validateIdentity(identity, identityError);
 	const passwordStatus = validatePassword(password, passwordError);
+	// cond
 	if((identityStatus == "VALIDATED") && (passwordStatus == "VALIDATED")) {
 		// FORM DATA
 		let formData = new FormData();
@@ -472,6 +473,70 @@ const deleteTask = (id) => {
 			}
 		}
 	});
+}
+const changePassword = (id) => {
+	// form input validators
+	const validatePassword = (a, b) => {
+		let validityStatus = empty;
+		b.html(empty).hide();
+		if(a == empty) {
+			b.html("Password cannot be empty").show();
+		} else {
+			b.html(empty).hide();
+			validityStatus = "VALIDATED";
+			return validityStatus;
+		}
+	}
+	/* VARIABLES */
+	let empty = "";
+	let alert = empty;
+	let time = 4000;
+	const token = $("meta[name='csrf-token']").attr('content');
+	const newPassword = $("#new-password").val();
+	const confirmPassword = $("#confirm-password").val();
+	let newPasswordError = $(".new-password-error");
+	let formBtn = $("#user-change-password-btn");
+	let formNotification = $(".form-notification");
+	let form = $("#user-change-password-form");
+	const newPasswordStatus = validatePassword(newPassword, newPasswordError);
+	// cond
+	if((newPasswordStatus == "VALIDATED")) {
+		// check passwords matching
+		if(newPassword == confirmPassword) {
+			// FORM DATA
+			let formData = new FormData();
+			// route (template literal)
+			let route = `/user/${id}/changepassword`;
+			// payload
+			formData.append("_token", token);
+			formData.append("newPassword", newPassword);
+			// AJAX Call
+			$.ajax({
+				type: "POST",
+				url: route,
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function(response) {
+					if(response.success) {
+						alert = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Password Changed Successfully</div>";
+						formNotification.append(alert);
+						setTimeout(function() {
+							formNotification.html(empty);
+							form.trigger("reset");
+						}, time);
+					}
+				}
+			});
+		} else {
+			alert = "<div class='alert alert-warning alert-dismissible fade show' role='alert'>Passwords do not match</div>";
+			formNotification.append(alert);
+			setTimeout(function() {
+				let time = 3000;
+				formNotification.html(empty);
+			}, time);
+		}
+	}
 }
 const logout = () => {
 	// use fetch
